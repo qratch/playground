@@ -20,6 +20,7 @@
     "qratch": "^0.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hot-keys": "^2.7.1",
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
