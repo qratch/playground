@@ -3,6 +3,7 @@ import { AppProps } from 'next/app'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { mainTheme as theme } from '../themes/main'
+import { SnackbarProvider } from 'notistack'
 
 function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
   useEffect(() => {
@@ -16,7 +17,9 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Component {...pageProps} />
+        <SnackbarProvider>
+          <Component {...pageProps} />
+        </SnackbarProvider>
       </ThemeProvider>
     </>
   )
