@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qratch Playground Frame</title>
+
+  <script src="https://rawgit.com/Microsoft/TypeScript/master/lib/typescriptServices.js"></script>
+  <script src="https://unpkg.com/qratch/dist/umd/index.js"></script>
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="480" tabindex="1"></canvas>
+
+  <script>
+
+    window.addEventListener('load', () => {
+      for (const [k, v] of Object.entries(Qratch)) {
+        window[k] = v
+      }
+
+      window.playground = {
+        canvas: document.getElementById('canvas')
+      }
+
+      const src = decodeURIComponent(location.search.slice(1))
+      const js = ts.transpile(src, {
+        target: 'es6'
+      })
+      console.log(js)
+
+      eval(js)
+    })
+  </script>
+</body>
+</html>
