@@ -30,10 +30,13 @@ export const HomePage: NextPage = () => {
     }
 
     w.addEventListener('load', () => {
-      w.postMessage({
-        type: 'run',
-        code,
-      })
+      w.postMessage(
+        {
+          type: 'run',
+          code,
+        },
+        '*'
+      )
     })
 
     setPlayWindow(w)
