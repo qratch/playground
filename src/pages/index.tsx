@@ -15,28 +15,28 @@ export const HomePage: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const run = () => {
-    const encoded = encodeURIComponent(code)
-    const url = `/play-frame.html?${encoded}`
-
-    if (playWindow && !playWindow.closed) {
-      playWindow.location.href = url
-
-      playWindow.addEventListener('close', () => {
-        setPlayWindow(null)
-      })
-    } else {
-      const w = window.open(url)
-
-      if (!w) {
-        enqueueSnackbar('Please allow pop-ups.', {
-          variant: 'error',
-        })
-
-        return
-      }
-
-      setPlayWindow(w)
+    if (playWindow) {
+      playWindow.close()
     }
+
+    const w = window.open('/play-frame.html')
+
+    if (!w) {
+      enqueueSnackbar('Please allow pop-ups.', {
+        variant: 'error',
+      })
+
+      return
+    }
+
+    w.addEventListener('load', () => {
+      w.postMessage({
+        type: 'run',
+        code,
+      })
+    })
+
+    setPlayWindow(w)
   }
 
   return (

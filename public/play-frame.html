@@ -20,6 +20,22 @@
   <canvas id="canvas" width="640" height="480" tabindex="1"></canvas>
 
   <script>
+    const run = (src) => {
+      const js = ts.transpile(src, {
+        target: 'es6'
+      })
+      console.log(js)
+
+      eval(js)
+    }
+
+    window.addEventListener('message', ({ data, origin }) => {
+      if (origin.startsWith('http://localhost') || origin.startsWith('https://play.qratch.dev')) {
+        if (data.type === 'run') {
+          run(data.code)
+        }
+      }
+    }, false)
 
     window.addEventListener('load', () => {
       for (const [k, v] of Object.entries(Qratch)) {
@@ -30,13 +46,7 @@
         canvas: document.getElementById('canvas')
       }
 
-      const src = decodeURIComponent(location.search.slice(1))
-      const js = ts.transpile(src, {
-        target: 'es6'
-      })
-      console.log(js)
-
-      eval(js)
+      parent.postMessage({ type: 'load' })
     })
   </script>
 </body>
