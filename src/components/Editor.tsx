@@ -2,7 +2,7 @@ import MonacoEditor, { OnMount, useMonaco } from '@monaco-editor/react'
 import { useEffect, useState } from 'react'
 
 const fetchQratchTypes = async () => {
-  const res = await fetch('https://unpkg.com/qratch@latest/dist/umd/index.d.ts')
+  const res = await fetch('https://unpkg.com/qratch/dist/umd/index.d.ts')
   const text = await res.text()
 
   return text
